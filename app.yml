@@ -1,0 +1,33 @@
+
+---
+ - hosts: dev
+   tags: dev
+   tasks:
+   - name: pull the images
+     raw: docker pull shivkesh/im1:1
+   - name: pull the images
+     raw: docker pull shivkesh/im2:1
+   - name: remove previous containers
+     raw: docker rm -f c1 c2
+     ignore_errors: true
+   - name: docker build container
+     raw: docker run -dti- --name c1 -p 98:80 shivkesh/im1:1 /bin/bash
+   - name: docker build container
+     raw: docker run -dti- --name c2 -p 97:80 shivkesh/im1:1 /bin/bash
+
+ - hosts: qa
+   tags: qa
+   tasks:
+   - name: pull the images
+     raw: docker pull shivkesh/im1:1
+   - name: pull the images
+     raw: docker pull shivkesh/im2:1
+   - name: remove previous containers
+     raw: docker rm -f c1 c2
+     ignore_errors: true
+   - name: docker build container
+     raw: docker run -dti- --name c1 -p 98:80 shivkesh/im1:1 /bin/bash
+   - name: docker build container
+     raw: docker run -dti- --name c2 -p 97:80 shivkesh/im1:1 /bin/bash
+
+
